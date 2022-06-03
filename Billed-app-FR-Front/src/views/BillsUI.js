@@ -23,7 +23,7 @@ const rows = (data) => {
   console.log(data);
   return data && data.length
     ? data
-        .sort((a, b) => new Date(b.date) - new Date(a.date)) //tri
+        .sort((a, b) => new Date(b.rawDate) - new Date(a.rawDate)) //tri par date
         .map((bill) => row(bill))
         .join("")
     : "";
