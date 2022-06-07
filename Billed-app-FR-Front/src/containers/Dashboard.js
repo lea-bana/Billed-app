@@ -96,19 +96,19 @@ export default class {
 
   handleEditTicket(e, bill, bills) {
     console.log("appel handleedittickets", this.counter);
-    //if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
+    if (this.counter === undefined || this.id !== bill.id) this.counter = 0;
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id;
     console.log(this.counter);
-    //if (this.counter % 2 === 0) {
-    console.log("e trigred", bill, " & ", bill.id);
-    bills.forEach((b) => {
-      $(`#open-bill${b.id}`).css({ background: "#0D5AE5" }); //bleu
-    });
-    $(`#open-bill${bill.id}`).css({ background: "#2A2B35" }); //noir
-    $(".dashboard-right-container div").html(DashboardFormUI(bill));
-    $(".vertical-navbar").css({ height: "150vh" });
-    // this.counter++;
-    /*} else {
+    if (this.counter % 2 === 0) {
+      console.log("e triged", bill, " & ", bill.id);
+      bills.forEach((b) => {
+        $(`#open-bill${b.id}`).css({ background: "#0D5AE5" }); //bleu
+      });
+      $(`#open-bill${bill.id}`).css({ background: "#2A2B35" }); //noir
+      $(".dashboard-right-container div").html(DashboardFormUI(bill));
+      $(".vertical-navbar").css({ height: "150vh" });
+      this.counter++;
+    } else {
       $(`#open-bill${bill.id}`).css({ background: "#0D5AE5" }); //bleu
 
       $(".dashboard-right-container div").html(`
@@ -116,7 +116,7 @@ export default class {
       `);
       $(".vertical-navbar").css({ height: "120vh" });
       this.counter++;
-    }*/
+    }
     $("#icon-eye-d").click(this.handleClickIconEye);
     $("#btn-accept-bill").click((e) => this.handleAcceptSubmit(e, bill));
     $("#btn-refuse-bill").click((e) => this.handleRefuseSubmit(e, bill));
@@ -143,7 +143,38 @@ export default class {
   };
 
   handleShowTickets(e, bills, index) {
-    console.log(index);
+    if (this.counter === undefined || this.index !== index) this.counter = 0;
+    if (this.index === undefined || this.index !== index) this.index = index;
+    if (!$(`#status-bills-container${this.index}`).attr("open")) {
+      //liste dépliée
+      $(`#arrow-icon${this.index}`).css({ transform: "rotate(0deg)" });
+      $(`#status-bills-container${this.index}`).html(
+        cards(filteredBills(bills, getStatus(this.index)))
+      );
+      $(`#status-bills-container${this.index}`).attr("open", true);
+      this.counter++;
+    } else {
+      //liste repliée
+      $(`#arrow-icon${this.index}`).css({ transform: "rotate(90deg)" });
+      $(`#status-bills-container${this.index}`).html("");
+      this.counter++;
+      $(`#status-bills-container${this.index}`).attr("open", false);
+    }
+    console.log("handleEditTicketsforAllll");
+
+    bills.forEach((bill) => {
+      if (!$(`#open-bill${bill.id}`).attr("created")) {
+        $(`#open-bill${bill.id}`).attr("created", true);
+        $(`#open-bill${bill.id}`).click((e) =>
+          this.handleEditTicket(e, bill, bills)
+        );
+      }
+    });
+
+    return bills;
+  }
+
+  /* console.log(index);
     if (this.counter === undefined) {
       this.counter = [];
       this.counter[1] = 0;
@@ -177,7 +208,7 @@ export default class {
     });
 
     return bills;
-  }
+  }*/
 
   getBillsAllUsers = () => {
     if (this.store) {
