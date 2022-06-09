@@ -45,7 +45,7 @@ describe("Given I am connected as an employee", () => {
         /^(19|20)\d\d[- /.](0[1-9]|1[012])[- /.](0[1-9]|[12][0-9]|3[01])$/i
       )
       .map((a) => a.innerHTML);
-    const antiChrono = (a, b) => new Date(b.rawDate) - new Date(a.rawDate); // (a, b) => (a < b ? 1 : -1);
+    const antiChrono = (a, b) => new Date(b.rawDate) - new Date(a.rawDate);
     const datesSorted = [...dates].sort(antiChrono);
     expect(dates).toEqual(datesSorted);
   });
@@ -95,7 +95,7 @@ describe("Given I am connected as an employee", () => {
         localStorage: window.localStorage,
       });
 
-      $.fn.modal = jest.fn(); //def la fction modal
+      $.fn.modal = jest.fn(); //def la fction modal -- Jquery--
       const iconEye = screen.getAllByTestId("icon-eye")[0];
       const handleShowModalFile = jest.fn((e) => {
         billsContainer.handleClickIconEye(e.target);
@@ -108,6 +108,8 @@ describe("Given I am connected as an employee", () => {
       expect(screen.getAllByText("Justificatif")).toBeTruthy();
     });
   });
+
+  //TEST D'INTEGRATION GET BILLS
 
   describe("When I navigate in my space", () => {
     test("Then fetches bills from mock API GET ", async () => {
@@ -142,7 +144,7 @@ describe("Given I am connected as an employee", () => {
     });
   });
 
-  test("Then fetches bills from an API and fails with 404 message error", async () => {
+  test("Then fetch bills from an API and fail with 404 message error", async () => {
     mockStore.bills = jest.fn().mockImplementation(() => {
       Promise.reject(new Error("Erreur 404"));
     });
@@ -152,7 +154,7 @@ describe("Given I am connected as an employee", () => {
     expect(message).toBeTruthy();
   });
 
-  test("Then fetches messages from an API and fails with 500 message error", async () => {
+  test("Then fetch bills from an API and fail with 500 message error", async () => {
     mockStore.bills = jest.fn().mockImplementation(() => {
       Promise.reject(new Error("Erreur 500"));
     });

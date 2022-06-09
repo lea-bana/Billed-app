@@ -269,7 +269,7 @@ describe("Given I am connected as Admin, and I am on Dashboard page, and I click
 
 describe("Given I am connected as Admin and I am on Dashboard page and I clicked on a bill", () => {
   describe("When I click on the icon eye", () => {
-    test("A modal should open", () => {
+    test("then A modal should open", () => {
       Object.defineProperty(window, "localStorage", {
         value: localStorageMock,
       });
@@ -308,7 +308,7 @@ describe("Given I am connected as Admin and I am on Dashboard page and I clicked
 
 describe("Given I am a user connected as Admin", () => {
   describe("When I navigate to Dashboard", () => {
-    test("fetches bills from mock API GET", async () => {
+    test("then fetches bills from mock API GET", async () => {
       localStorage.setItem(
         "user",
         JSON.stringify({ type: "Admin", email: "a@a" })
