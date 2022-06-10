@@ -23,6 +23,7 @@ describe("Given that I am a user on login page", () => {
 
       form.addEventListener("submit", handleSubmit);
       fireEvent.submit(form);
+      expect(handleSubmit).toHaveBeenCalled();
       expect(screen.getByTestId("form-employee")).toBeTruthy();
     });
   });
